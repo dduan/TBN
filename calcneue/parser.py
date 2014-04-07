@@ -1,6 +1,7 @@
 from __future__ import print_function, unicode_literals, division
 
 import ply.yacc as yacc
+# TODO: return None for invaild input
 try:
     from calcneue.lexer import CalcNeueLexer
 except:
