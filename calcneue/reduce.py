@@ -1,5 +1,11 @@
 from __future__ import print_function, unicode_literals, division
 from convert import convert, lookup_base_unit
+
+# TODO:
+# variables
+# use unknown units
+# tolerate partial errors 
+
 def reduce(node):
     print('reducing {}'.format(node))
     return globals()['reduce_' + node[0]](*node[1:])
