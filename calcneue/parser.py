@@ -75,7 +75,13 @@ class CalcNeueParser:
             p[0] = ('quantity', p[1], p[2])
         except IndexError:
             p[0] = ('quantity', p[1], None)
-
+    def p_expression_variable(self, p):
+        '''expression   :   IDENTIFIER IDENTIFIER
+						|   IDENTIFIER'''
+        try:
+            p[0] = ('variable', p[1], p[2])
+        except IndexError:
+            p[0] = ('variable', p[1], None)
     def p_number_float(self, p):
         '''number : FLOAT'''
         p[0] = ('float_number', p[1])
