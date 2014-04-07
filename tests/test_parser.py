@@ -21,6 +21,12 @@ def test_unit_quantity(calc):
         '0 kblam': _i(0, 'kblam'),
     })
 
+def test_unit_variable(calc):
+    input_should_match(calc, {
+        'a inch': ('variable', 'a', 'inch'),
+        'cos(a meter)': ('function_expr', ('variable', 'a', 'meter'), 'cos'),
+    })
+
 def test_function_expr(calc):
     input_should_match(calc, {
         'sin(0.4)': ('function_expr', _f(0.4), 'sin'),
