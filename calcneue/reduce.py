@@ -1,5 +1,6 @@
 from __future__ import print_function, unicode_literals, division
-from convert import convert, lookup_base_unit
+from calcneue.convert import convert, lookup_base_unit
+
 
 # TODO:
 # variables
@@ -12,7 +13,7 @@ def reduce(node):
 
 def reduce_quantity(number, unit):
 	baseunit = lookup_base_unit(unit)
-	return convert((number, unit), baseunit)
+	return convert((number[0][1], unit), baseunit)
 
 def reduce_float_number(s):
     return float(s)
@@ -22,7 +23,7 @@ def reduce_integer_number(s):
 
 def reduce_convert_expr(expr, unit):
     #TODO: actually convert it
-    return convert(reduce(expr), unit)
+    return convert((expr[0][1], expr[1]), unit)
 
 def reduce_assignment(expr, id):
     #TODO: implement side effects aka register id
