@@ -9,11 +9,11 @@
 		
 				
 		$("#formula_area").keydown(function(e) {
-			var value = $(this).find("textarea").val();
-			$.getJSON("http://localhost:5000", {"input": value}, function(result) {
+			var value = $("#formula_area").val();
+			$.getJSON("/api", {"input": value}, function(result) {
+				console.log("hi");
 				$("#output").val(result.join("\n"));
 			});
-			console.log("hi");
 		});
 
 		$("#save").click(function(e) {

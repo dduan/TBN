@@ -3,7 +3,7 @@
 	<head> 
 		<meta charset="UTF-8">
 		<title>Calcneue</title>
-		<link href="myStyle.css" rel="stylesheet" type="text/css" media="all" />
+		<link href="client/myStyle.css" rel="stylesheet" type="text/css" media="all" />
 		<!--[if IE 7]><link rel="stylesheet" type="text/css" href="IE7styles.css" /><![endif]--> 
 
 	</head>
@@ -11,18 +11,19 @@
 	<body>
 		<ul id="list">
 		</ul>
-		<div class="input">
-			<form>
-				<textarea placeholder="Enter formula here..." id="formula_area"></textarea>
-				<button type="submit">Send</button>
-				<button id="save">Save</button>
-			</form>
-
+		<div id="editor">
+			<input id="title" type="text"></input>
+			<textarea placeholder="Enter formula here..." id="formula_area"></textarea>
+		</div>
+		<div id="buttons">
+			<button type="submit">Send</button>
+			<button id="save">Save</button>
 		</div>
 		<textarea id="output"></textarea>
-		<script	src="jquery-2.1.0.min.js"></script>
 
-		<script	src="client.js"></script>
+		<script	src="client/jquery-2.1.0.min.js"></script>
+
+		<script	src="client/client.js"></script>
 		<script>
 			$(document).ready(function(){
 				initClient();
