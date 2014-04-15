@@ -10,8 +10,8 @@
 				
 		$("#formula_area").keydown(function(e) {
 			var value = $("#formula_area").val();
+			console.log('requesting');
 			$.getJSON("/api", {"input": value}, function(result) {
-				console.log("hi");
 				$("#output").val(result.join("\n"));
 			});
 		});
