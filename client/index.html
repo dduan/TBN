@@ -9,22 +9,23 @@
 	</head>
 
 	<body>
+		<ul id="list">
+		</ul>
 		<div class="input">
 			<form>
-				<textarea placeholder="Enter formula here..." name="formula_area"></textarea>
+				<textarea placeholder="Enter formula here..." id="formula_area"></textarea>
 				<button type="submit">Send</button>
 				<button id="save">Save</button>
 			</form>
-			<ul id="list">
-				<li> dummy</li>
-			</ul>
+
 		</div>
-		<textarea id="output" name="formula_area"></textarea>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.1.0/jquery.min.js"></script>
+		<textarea id="output"></textarea>
+		<script	src="jquery-2.1.0.min.js"></script>
+
 		<script	src="client.js"></script>
 		<script>
 			$(document).ready(function(){
-				tile();
+				initClient();
 			});
 		</script>
 	</body>

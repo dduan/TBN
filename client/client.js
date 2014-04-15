@@ -1,16 +1,19 @@
-(function($){
-	tile = function(){			
+(function($) {
+	window.initClient = function() {			
 		var retrieveDocs = JSON.parse(localStorage.getItem("docs"));
-		$.each(retrieveDocs, function(name, body) {
-			$("#list").append('<li>'+name+'</li>');
-			console.log(name);
-		});
+		if (retrieveDocs) {
+			$.each(retrieveDocs, function(name, body) {
+				$("#list").append('<li>'+name+'</li>');
+			});
+		}
+		
 				
-		$("form").keydown(function(e) {
+		$("#formula_area").keydown(function(e) {
 			var value = $(this).find("textarea").val();
 			$.getJSON("http://localhost:5000", {"input": value}, function(result) {
 				$("#output").val(result.join("\n"));
 			});
+			console.log("hi");
 		});
 
 		$("#save").click(function(e) {
@@ -21,3 +24,4 @@
 		});
 	};
 })(jQuery);
+
