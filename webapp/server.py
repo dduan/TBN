@@ -1,11 +1,11 @@
 from flask import request, Flask, jsonify, json
 
 import os
-app = Flask(__name__, static_url_path='')
+app = Flask(__name__)
 
 @app.route('/')
 def index():
-	return app.send_static_file('static/index.html')
+	return app.send_static_file('index.html')
 
 #TODO: replace tbn() with the real deal
 @app.route('/api', methods=['GET'])
