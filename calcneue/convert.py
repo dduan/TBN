@@ -2,11 +2,16 @@
 relations = {
     'kilometer': (1000, 0, 'meter'),
     'celsius': (9/5, 32, 'farenheit'),
+    'meters' : (1, 0, 'meter'),
 }
 
 # quantity is a tuple of (number, old_unit)
 def convert(quantity, unit):
     # 1 in meter, unit should be meter
+    print("converting; quantity = ")
+    print(quantity)
+    print(" unit = ")
+    print(unit)
     if quantity[1] == None:
         if unit == None:
             return (quantity[0], ([], []))
@@ -28,7 +33,10 @@ def convert(quantity, unit):
 
 def lookup_base_unit(unit):
     '''also takes care of aliases 'm' => "meter"'''
-    return unit
+    if unit == 'meters':
+    	return 'meter'
+    else: 
+    	return unit
 
 if __name__ == '__main__':
     while True:

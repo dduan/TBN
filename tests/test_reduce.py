@@ -17,33 +17,34 @@ def test_unitless_quantity(red):
 
 def test_basic_quantity(red):
     input_should_match(red, {
-        ('quantity', _i(1), 'meter'): (1, 'meter')
+        _i(1, 'meter'): (1, _sunit('meter')),
     })
 
 
 def test_reduce_convert_expr(red):
     input_should_match(red, {
-        ( 'convert_expr', _i(1), 'meter'): (1, 'meter'),
-        ('convert_expr', _i(1, 'kilometer'), 'meter'):  (1000, 'meter'),
+        ( 'convert_expr', _i(1), 'meter'): (1, _sunit('meter')),
+        ('convert_expr', _i(1, 'kilometer'), 'meter'):  (1000, _sunit('meter')),
         (
             'convert_expr',
-            ('binop_plus', _i(1, 'meter'), _i(2)),
+           ('binop_plus', _i(1, 'meter'), _i(2)),
             'meters'
-            ): (3, 'meter'),
+            ): (3, _sunit('meters')),
         (
             'convert_expr',
             ('convert_expr', _i(1, 'meter'), 'meters'),
             'meter'
-            ): (1, 'meter')
+            ): (1, _sunit('meter')),
     })
 
 def test_binop_plus(red):
     input_should_match(red, {
-        ('binop_plus', ('quantity', ('integer_number', 1), None), ('quantity', ('integer_number', 2), None)): (3, None)
+        ('binop_plus', ('quantity', ('integer_number', 1), None), ('quantity', ('integer_number', 2), None)): (3, _sunit(None)),
         })
+
 def test_binop_power_to_quantity_with_unit(red):
     '''1 meter ^ 2 foot'''
     input_should_match(red, {
-    ('binop_power', ('quantity', _i(1), 'meter'), ('quantity', _i(1), 'apple')): (None, None)
+    ('binop_power', ('quantity', _i(1), 'meter'), ('quantity', _i(1), 'apple')): (None, _sunit(None)),
     })
 

@@ -13,7 +13,8 @@ def reduce(node):
 
 def reduce_quantity(number, unit):
     baseunit = lookup_base_unit(unit)
-    print(number)
+    #print(number)
+    print("calling convert from reduce_quantity")
     return convert((number[1], unit), baseunit)
 
 def reduce_float_number(s):
@@ -23,11 +24,12 @@ def reduce_integer_number(s):
     return int(s)
 
 def reduce_convert_expr(expr, unit):
+    expr = reduce(expr)
     if unit_is_complex(expr[1]):
         return reduce(expr)
     else:
-        expr = reduce(expr)
-        return convert((expr[0], expr[1]), unit)
+        print("calling convert from reduce_convert_quantity")
+        return convert((expr[0], expr[1][0][0]), unit)
 
 def reduce_assignment(expr, id):
     #TODO: implement side effects aka register id
