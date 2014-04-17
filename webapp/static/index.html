@@ -1,33 +1,61 @@
 <!DOCTYPE html>
-<html>
-	<head> 
-		<meta charset="UTF-8">
-		<title>TBN</title>
-		<link href="static/myStyle.css" rel="stylesheet" type="text/css" media="all" />
-		<!--[if IE 7]><link rel="stylesheet" type="text/css" href="IE7styles.css" /><![endif]--> 
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>TBN</title>
 
-	</head>
+    <!-- Bootstrap -->
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/tbn.css" rel="stylesheet">
 
-	<body>
-		<ul id="list">
-		</ul>
-		<div id="editor">
-			<input id="title" type="text"></input>
-			<textarea placeholder="Enter formula here..." id="formula_area"></textarea>
-		</div>
-		<div id="buttons">
-			<button type="submit">Send</button>
-			<button id="save">Save</button>
-		</div>
-		<textarea id="output"></textarea>
-
-		<script	src="/static/jquery-2.1.0.min.js"></script>
-
-		<script	src="/static/client.js"></script>
-		<script>
-			$(document).ready(function(){
-				initClient();
-			});
-		</script>
-	</body>
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+      <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+      <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  </head>
+  <body>
+    <div class="panel panel-default">
+      <div class="panel-body">
+        <div class="page-header">
+          <h1>TBN <small>Truly Brainy Notepad<small></h1>
+        </div>
+        <form class="horizontal-form" role="form">
+          <div class="form-group">
+            <div class="col-xs-12 col-lg-12">
+              <!--<a href="#" id="docname">Title</a>-->
+              <div class="input-group">
+                <span class="input-group-btn">
+                  <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Document <span class="caret"></span></button>
+                  <ul class="dropdown-menu">
+                    <li><a href="#">New</a></li>
+                    <li><a href="#">Save</a></li>
+                    <li class="divider"></li>
+                    <li class="dropdown-header">Open ...</li>
+                  </ul>
+                </span>
+                <input type="text" class="form-control">
+            </div>
+            </div>
+          </div>
+          <div class="form-group">
+            <div class="col-xs-9 col-lg-10" id="tbn-input">
+              <textarea class="form-control" rows="16"></textarea>
+            </div>
+            <div class="col-xs-3 col-lg-2" id="tbn-result">
+              <textarea class="form-control" rows="16"></textarea>
+            </div>
+          </div>
+        </form>
+      </div>
+    <div>
+    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.0/jquery.min.js"></script>
+    <!-- Include all compiled plugins (below), or include individual files as needed -->
+    <script src="js/bootstrap.min.js"></script>
+    <script src="js/tbn.js"></script>
+  </body>
 </html>

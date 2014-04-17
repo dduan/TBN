@@ -1,0 +1,9 @@
+div#tbn-input {
+    padding-right: 0px;
+}
+div#tbn-result {
+    padding-left: 0px;
+}
+textarea.form-control {
+    padding: 0px;
+}
