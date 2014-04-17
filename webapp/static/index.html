@@ -30,23 +30,23 @@
               <div class="input-group">
                 <span class="input-group-btn">
                   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Document <span class="caret"></span></button>
-                  <ul class="dropdown-menu">
-                    <li><a href="#">New</a></li>
-                    <li><a href="#">Save</a></li>
+                  <ul class="dropdown-menu" id = "menu">
+                    <li><a href="#" id = "new_button">New</a></li>
+                    <li><a href="#" id = "save_button">Save</a></li>
                     <li class="divider"></li>
                     <li class="dropdown-header">Open ...</li>
                   </ul>
                 </span>
-                <input type="text" class="form-control">
+                <input type="text" class="form-control" id = "doc_title">
             </div>
             </div>
           </div>
           <div class="form-group">
             <div class="col-xs-9 col-lg-10" id="tbn-input">
-              <textarea class="form-control" rows="16"></textarea>
+              <textarea class="form-control" rows="16" id = "formula_area"></textarea>
             </div>
             <div class="col-xs-3 col-lg-2" id="tbn-result">
-              <textarea class="form-control" rows="16"></textarea>
+              <textarea class="form-control" rows="16" id  = "result_area"></textarea>
             </div>
           </div>
         </form>
