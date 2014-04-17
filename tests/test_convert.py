@@ -11,3 +11,6 @@ def test_known_units():
 
 def test_empty_source_unit():
     assert convert((1, None), None) == (1, _sunit())
+    assert convert((1, None), 'meter') == (1, _sunit('meter'))
+
+

@@ -8,15 +8,11 @@ relations = {
 # quantity is a tuple of (number, old_unit)
 def convert(quantity, unit):
     # 1 in meter, unit should be meter
-    print("converting; quantity = ")
-    print(quantity)
-    print(" unit = ")
-    print(unit)
     if quantity[1] == None:
         if unit == None:
             return (quantity[0], ([], []))
         else:
-            return (quantity[0], ([unit, 1], []))
+            return (quantity[0], ([(unit, 1)], []))
     else: 
         try:
             # found relation

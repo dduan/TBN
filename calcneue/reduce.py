@@ -17,19 +17,15 @@ def reduce_quantity(number, unit):
     print("calling convert from reduce_quantity")
     return convert((number[1], unit), baseunit)
 
-def reduce_float_number(s):
-    return float(s)
-
-def reduce_integer_number(s):
-    return int(s)
-
 def reduce_convert_expr(expr, unit):
     expr = reduce(expr)
     if unit_is_complex(expr[1]):
         return reduce(expr)
-    else:
+    elif not unit_is_empty(expr[1]):
         print("calling convert from reduce_convert_quantity")
-        return convert((expr[0], expr[1][0][0]), unit)
+        return convert((expr[0], expr[1][0][0][0]), unit)
+    else:
+        return convert((expr[0], None), unit)
 
 def reduce_assignment(expr, id):
     #TODO: implement side effects aka register id
