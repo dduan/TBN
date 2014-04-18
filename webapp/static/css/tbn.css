@@ -6,4 +6,5 @@ div#tbn-result {
 }
 textarea.form-control {
     padding: 0px;
+    resize: none;
 }
