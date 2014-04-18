@@ -10,8 +10,6 @@ $(document).ready(function() {
 			this.createDocument();
 			this.updateDocumentList();
 
-
-
 			$("#save_button").click(function(e) {
 				_this.saveDocument();
 				_this.updateDocumentList();
@@ -19,6 +17,7 @@ $(document).ready(function() {
 
 			$("#new_button").click(function(e) {_this.createDocument();});
 
+			this.editingDocument = '';
 	  }
 
 		TBNWebClient.prototype.allDocuments = function() {
@@ -29,6 +28,7 @@ $(document).ready(function() {
 			var date = new Date();
 			var docName = "Created On " + date.toDateString() + " "
 				+ date.toLocaleTimeString();
+			this.editingDocument = '';
 			$("#doc_title").val(docName);
 			$("#formula_area").val("");
 			$("#result_area").val("");
@@ -54,6 +54,10 @@ $(document).ready(function() {
 			var title = $("#doc_title").val();
 			var body = $("#formula_area").val();
 			var docs = this.allDocuments();
+			if (this.editingDocument) {
+				// remove from localstorage by the old file name first
+				delete docs[this.editingDocument];
+			}
 			docs[title] = body;
 			localStorage.setItem('docs', JSON.stringify(docs));
 		};
@@ -63,6 +67,7 @@ $(document).ready(function() {
 			console.log(body);
 			$("#doc_title").val(name);
 			$('#formula_area').val(body);
+			this.editingDocument = name;
 		}
 
 		TBNWebClient.prototype.evaluateDocument = function() {
