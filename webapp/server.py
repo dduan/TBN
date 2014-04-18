@@ -13,7 +13,7 @@ def get_request():
 	return jsonify({'result' : tbn(request.args['input'])})
 
 def tbn(body):
-	return 'None'
+	return ["<3" for x in body.split('\n')]
 
 if __name__ == '__main__':
     app.run()

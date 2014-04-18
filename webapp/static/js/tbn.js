@@ -10,6 +10,12 @@ $(document).ready(function() {
 			this.createDocument();
 			this.updateDocumentList();
 
+      $('#formula_area').keyup(function() {
+  			clearTimeout($.data(this, 'timer'));
+  			var wait = setTimeout(_this.evaluateDocument, 333);
+  			$(this).data('timer', wait);
+			});
+
 			$("#save_button").click(function(e) {
 				_this.saveDocument();
 				_this.updateDocumentList();
@@ -102,8 +108,8 @@ $(document).ready(function() {
 
 		TBNWebClient.prototype.evaluateDocument = function() {
 			var value = $("#formula_area").val();
-			$.getJSON("/api", {"input": value}, function(result) {
-				$("#output").val(result.join("\n"));
+			$.getJSON("/api", {"input": value}, function(data) {
+				$("#result_area").val(data['result'].join("\n"));
 			});
 		};
 
