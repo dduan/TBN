@@ -13,11 +13,16 @@ $(document).ready(function() {
 			$("#save_button").click(function(e) {
 				_this.saveDocument();
 				_this.updateDocumentList();
+				_this.updateUiByState();
 			});
 
-			$("#new_button").click(function(e) {_this.createDocument();});
+			$("#new_button").click(function(e) {
+				_this.createDocument();
+				_this.updateUiByState();
+			});
 
 			this.editingDocument = '';
+			this.updateUiByState();
 	  }
 
 		TBNWebClient.prototype.allDocuments = function() {
@@ -46,6 +51,7 @@ $(document).ready(function() {
 				});
 				$(".saved_doc").click(function(e) {
 					_this.openDocument($(e.target).text());
+					_this.updateUiByState();
 				});
 			}
 		};
@@ -58,13 +64,13 @@ $(document).ready(function() {
 				// remove from localstorage by the old file name first
 				delete docs[this.editingDocument];
 			}
+			this.editingDocument = title;
 			docs[title] = body;
 			localStorage.setItem('docs', JSON.stringify(docs));
 		};
 
 		TBNWebClient.prototype.openDocument = function(name) {
 			var body = this.allDocuments()[name];
-			console.log(body);
 			$("#doc_title").val(name);
 			$('#formula_area').val(body);
 			this.editingDocument = name;
@@ -75,6 +81,18 @@ $(document).ready(function() {
 			$.getJSON("/api", {"input": value}, function(result) {
 				$("#output").val(result.join("\n"));
 			});
+		}
+
+		TBNWebClient.prototype.updateUiByState = function() {
+			var newBadge = $('#save_button .badge');
+			var deleteLi = $('#delete_li');
+			if (this.editingDocument) {
+				newBadge.text('');
+				deleteLi.removeClass('disabled');
+			} else {
+				newBadge.text('new');
+				deleteLi.addClass('disabled');
+			}
 		}
 	  return TBNWebClient;
 

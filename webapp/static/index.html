@@ -20,6 +20,13 @@
   <body>
     <div class="panel panel-default">
       <div class="panel-body">
+        <div class="alert alert-warning">
+          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+          <strong>Warning!</strong>
+          '<span id="delete-title"></span>'
+          is about to be deleted.
+          <a href="#" class="alert-link" id="delete-confirmation">Click here to confirm.</a>
+        </div>
         <div class="page-header">
           <h1>TBN <small>Truly Brainy Notepad<small></h1>
         </div>
@@ -31,7 +38,9 @@
                   <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">Document <span class="caret"></span></button>
                   <ul class="dropdown-menu" id="menu">
                     <li><a href="#" id="new_button">New</a></li>
-                    <li><a href="#" id="save_button">Save</a></li>
+                    <li><a href="#" id="save_button">Save<span class="badge pull-right">new</span></a></li>
+                    <li id="delete_li"><a href="#">Delete...</a></li>
+                    <li>
                     <li class="divider"></li>
                     <li class="dropdown-header">Open ...</li>
                   </ul>
