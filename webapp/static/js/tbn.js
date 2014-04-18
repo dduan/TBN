@@ -21,6 +21,25 @@ $(document).ready(function() {
 				_this.updateUiByState();
 			});
 
+			$("#delete_button").click(function(e) {
+				_this.displayDeleteWarning();
+			});
+
+			$("#confirm-delete").click(function(e) {
+				$("#delete-warning").hide();
+				_this.replaceEditingDocument();
+				_this.createDocument();
+				_this.updateDocumentList();
+				_this.updateUiByState();
+			});
+
+			$("#cancel-delete").click(function(e) {
+				$("#delete-warning").hide();
+			});
+
+			$(".alert .close").click(function(e) {
+				$("#delete-warning").hide();
+			});
 			this.editingDocument = '';
 			this.updateUiByState();
 	  }
@@ -59,29 +78,34 @@ $(document).ready(function() {
 	  TBNWebClient.prototype.saveDocument = function() {
 			var title = $("#doc_title").val();
 			var body = $("#formula_area").val();
+			this.replaceEditingDocument(title, body);
+		};
+
+		TBNWebClient.prototype.replaceEditingDocument = function(title, body) {
 			var docs = this.allDocuments();
 			if (this.editingDocument) {
 				// remove from localstorage by the old file name first
 				delete docs[this.editingDocument];
 			}
 			this.editingDocument = title;
-			docs[title] = body;
+			if (title && body) {
+				docs[title] = body;
+			}
 			localStorage.setItem('docs', JSON.stringify(docs));
 		};
-
 		TBNWebClient.prototype.openDocument = function(name) {
 			var body = this.allDocuments()[name];
 			$("#doc_title").val(name);
 			$('#formula_area').val(body);
 			this.editingDocument = name;
-		}
+		};
 
 		TBNWebClient.prototype.evaluateDocument = function() {
 			var value = $("#formula_area").val();
 			$.getJSON("/api", {"input": value}, function(result) {
 				$("#output").val(result.join("\n"));
 			});
-		}
+		};
 
 		TBNWebClient.prototype.updateUiByState = function() {
 			var newBadge = $('#save_button .badge');
@@ -93,7 +117,12 @@ $(document).ready(function() {
 				newBadge.text('new');
 				deleteLi.addClass('disabled');
 			}
-		}
+		};
+
+		TBNWebClient.prototype.displayDeleteWarning = function() {
+			$("#delete-title").text(this.editingDocument);
+			$("#delete-warning").show();
+		};
 	  return TBNWebClient;
 
 	})();

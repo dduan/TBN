@@ -20,12 +20,14 @@
   <body>
     <div class="panel panel-default">
       <div class="panel-body">
-        <div class="alert alert-warning">
-          <button type="button" class="close" data-dismiss="alert" aria-hidden="true">&times;</button>
+        <div class="alert alert-warning fade in" id="delete-warning" style="display:none;">
+          <button type="button" class="close" aria-hidden="true">&times;</button>
           <strong>Warning!</strong>
           '<span id="delete-title"></span>'
-          is about to be deleted.
-          <a href="#" class="alert-link" id="delete-confirmation">Click here to confirm.</a>
+          is about to be deleted, should it be?
+          <button type="button" class="btn btn-danger btn-xs" id="confirm-delete">Confirm</button>
+          <button type="button" class="btn btn-default btn-xs" id="cancel-delete">Never mind</button>
+
         </div>
         <div class="page-header">
           <h1>TBN <small>Truly Brainy Notepad<small></h1>
@@ -39,7 +41,7 @@
                   <ul class="dropdown-menu" id="menu">
                     <li><a href="#" id="new_button">New</a></li>
                     <li><a href="#" id="save_button">Save<span class="badge pull-right">new</span></a></li>
-                    <li id="delete_li"><a href="#">Delete...</a></li>
+                    <li id="delete_li"><a href="#" id="delete_button">Delete...</a></li>
                     <li>
                     <li class="divider"></li>
                     <li class="dropdown-header">Open ...</li>
