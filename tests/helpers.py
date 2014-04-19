@@ -9,3 +9,7 @@ def _sunit(unit=None):
         return ([], [])
     else:
         return ([(unit, 1)], [])
+
+def _almost_equal(a, b, threshold=0.0001):
+    ''' test float number equality'''
+    return  a - b < threshold
