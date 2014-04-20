@@ -1,6 +1,6 @@
 import pytest
 from functools import partial
-from helpers import _i, _f, input_should_match, _sunit
+from helpers import _i, _f, input_should_match, _sunit, _almost_equal
 from calcneue.reduce import reduce
 
 @pytest.fixture
@@ -47,3 +47,13 @@ def test_binop_power_to_quantity_with_unit(red):
     ('binop_power', ('quantity', _i(1), 'meter'), ('quantity', _i(1), 'apple')): (None, _sunit(None)),
     })
 
+def test_reduce_basic_math_function(red):
+    # sin(PI) should be 0
+    node =  ('function_expr', ('quantity', ('float_number', 3.1415926), None), 'sin')
+    print(red(node))
+    assert _almost_equal(red(node)[0], 0)
+    # sin(PI/2 meter) should be 1 meter
+    node =  ('function_expr', ('quantity', ('float_number', 3.1415926/2), 'meter'), 'sin')
+    result = red(node)
+    assert _almost_equal(result[0], 1)
+    assert result[1] == _sunit('meter')
