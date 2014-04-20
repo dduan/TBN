@@ -5,8 +5,7 @@ from calcneue.reduce import reduce
 
 @pytest.fixture
 def red():
-    #return partial(reduce, context = {})
-    return reduce
+    return partial(reduce, {})
 
 def test_unitless_quantity(red):
     input_should_match(red, {
@@ -23,7 +22,7 @@ def test_basic_quantity(red):
 
 def test_reduce_convert_expr(red):
     input_should_match(red, {
-        ( 'convert_expr', _i(1), 'meter'): (1, _sunit('meter')),
+        ('convert_expr', _i(1), 'meter'): (1, _sunit('meter')),
         ('convert_expr', _i(1, 'kilometer'), 'meter'):  (1000, _sunit('meter')),
         (
             'convert_expr',
