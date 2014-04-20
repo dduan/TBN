@@ -14,11 +14,12 @@ def reduce_quantity(context, number, unit):
     return convert((number[1], unit), baseunit)
 
 def reduce_convert_expr(context, expr, unit):
+    ''' expr in unit '''
     expr = reduce(context, expr)
     if unit_is_complex(expr[1]):
         return reduce(context, expr)
-    elif not unit_is_empty(expr[1]):
-        return convert((expr[0], expr[1][0][0][0]), unit)
+    elif not unit_is_empty(expr[1]): # 1 km in m
+        return convert((expr[0], list(expr[1][0])[0][0]), unit)
     else:
         return convert((expr[0], None), unit)
 
@@ -53,19 +54,19 @@ def reduce_binop_minus(context, left, right):
 def reduce_binop_multiply(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
-    unit = simplity_unit((lval[1][0]+rval[1][0], lval[1][1]+rval[1][1]))
+    unit = simplify_unit((lval[1][0]+rval[1][0], lval[1][1]+rval[1][1]))
     return lval[0] * rval[0], unit
 
 def reduce_binop_divide(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
-    unit = simplity_unit((lval[1][0]+rval[1][1], lval[1][1]+rval[1][0]))
+    unit = simplify_unit((lval[1][0]+rval[1][1], lval[1][1]+rval[1][0]))
     return lval[0] / rval[0], unit
 
 def reduce_binop_mod(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
-    unit = simplity_unit((lval[1][0]+rval[1][1], lval[1][1]+rval[1][0]))
+    unit = simplify_unit((lval[1][0]+rval[1][1], lval[1][1]+rval[1][0]))
     return lval[0] % rval[0], unit
 
 def reduce_binop_power(context, left, right):
