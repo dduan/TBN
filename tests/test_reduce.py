@@ -39,7 +39,7 @@ def test_reduce_convert_expr(red):
 def test_basic_binop(red):
     input_should_match(red, {
         ('binop_plus', ('quantity', ('integer_number', 1), None), ('quantity', ('integer_number', 2), None)): (3, _sunit()),
-        ('reduce_binop_minus', ('quantity', ('integer_number', 2), None), ('quantity', ('integer_number', 1), None)): (1, _sunit()),
+        ('binop_minus', ('quantity', ('integer_number', 2), None), ('quantity', ('integer_number', 1), None)): (1, _sunit()),
         })
 
 def test_binop_with_ccomplex_unit(red):
