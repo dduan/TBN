@@ -10,10 +10,20 @@ def unit_is_empty(unit):
     return unit == (set(), set())
 
 def unit_is_equal(a, b):
-    return a == b
+    return simplify_unit(a) == simplify_unit(b)
 
 def simplify_unit(unit):
-    pass
+    count = {}
+    result = (set(), set())
+    for u, deg in unit[0]:
+        count[u] = count.get(u, 0) + deg
+    for u, deg in unit[1]:
+        count[u] = count.get(u, 0) - deg
+    for u, deg in count.items():
+        if deg > 0: result[0].add((u, deg))
+        if deg < 0: result[1].add((u, -deg))
+    return result
+
 
 def unit_is_complex(unit):
     '''not (numerator has one unit with degree 1, denominator is empty)'''
