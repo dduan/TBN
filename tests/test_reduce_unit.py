@@ -16,18 +16,17 @@ def test_unit_is_equal_complex_cases():
     m_per_ss = ({('meter', 1)}, {('s', 2)})
     newton1 = ({('kg', 1), ('m', 1)}, {('s', 2)}) #kg*m/s^2
     newton2 = ({('kg', 1), ('m', 1)}, {('s', 2)}) #kg*m/s^2
-    per_meter_cubed = ({}, {('m', 3)})
-    per_meter_cubed_complex = ({}, {('m', 1), {'m', 2}})
+    per_meter_cubed = (set(), {('m', 3)})
+    per_meter_cubed_complex = (set(), {('m', 1), ('m', 2)})
     assert unit_is_equal(newton1, newton1)
     assert unit_is_equal(newton1, newton2)
     assert not unit_is_equal(m_per_ss, newton1)
-    assert unit_is_equal(newton_almost, newton1)
     assert unit_is_equal(per_meter_cubed, per_meter_cubed_complex)
 
 def test_simplify_unit():
-    newton = ({('kg', 1), ('m', 1)}, {('s', 2)}) #kg*m/s^2
-    newton_almost= ({('kg', 1), ('m', 1)}, {('s', 1), ('s', 1)}) #kg*m/(s*s)
-    assert newton == simplify_unit(newton_almost)
+    per_meter_cubed = (set(), {('m', 3)})
+    per_meter_cubed_complex = (set(), {('m', 1), ('m', 2)})
+    assert per_meter_cubed == simplify_unit(per_meter_cubed_complex)
 
 def test_unit_is_complex():
     newton = ({('kg', 1), ('m', 1)}, {('s', 2)}) #kg*m/s^2
