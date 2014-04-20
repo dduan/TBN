@@ -1,6 +1,10 @@
 from __future__ import print_function, unicode_literals, division
-from calcneue.convert import convert, lookup_base_unit
-from calcneue.reduce_unit import *
+try:
+    from calcneue.convert import convert, lookup_base_unit
+    from calcneue.reduce_unit import *
+except ImportError:
+    from convert import convert, lookup_base_unit
+    from reduce_unit import *
 
 # TODO:
 # variables
@@ -85,7 +89,7 @@ if __name__ == '__main__':
     calc = CalcNeueParser()
     while True:
         try:
-            s = input('calc > ')
+            s = input('reduce > ')
         except EOFError:
             break
         print(reduce({}, calc.parser.parse(s)))
