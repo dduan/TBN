@@ -45,13 +45,13 @@ def test_basic_binop(red):
 def test_binop_with_ccomplex_unit(red):
     input_should_match(red,{
         # 1 meter * 1 meter = 1 meter^2
-        ('binop_multiply', ('quantity', ('integer_number', 1), 'meter'), ('quantity', ('integer_number', 1), 'meter')): (1, ([('meter', 2)], [])),
+        ('binop_multiply', ('quantity', ('integer_number', 1), 'meter'), ('quantity', ('integer_number', 1), 'meter')): (1, ({('meter', 2)}, set())),
         # 1 meter * 1 second = 1 (meter * second)
-        ('binop_multiply', ('quantity', ('integer_number', 1), 'meter'), ('quantity', ('integer_number', 1), 'second')): (1, ([('meter', 1), ('second', 1)], [])),
+        ('binop_multiply', ('quantity', ('integer_number', 1), 'meter'), ('quantity', ('integer_number', 1), 'second')): (1, ({('meter', 1), ('second', 1)}, set())),
         # 1 meter / 1 meter = 1
         ('binop_divide', ('quantity', ('integer_number', 1), 'meter'), ('quantity', ('integer_number', 1), 'meter')): (1, _sunit()),
         # 1 meter / 1 second = 1 (meter / second)
-        ('binop_multiply', ('quantity', ('integer_number', 1), 'meter'), ('quantity', ('integer_number', 1), 'second')): (1, ([('meter', 1)], [('second', 1)])),
+        ('binop_multiply', ('quantity', ('integer_number', 1), 'meter'), ('quantity', ('integer_number', 1), 'second')): (1, ({('meter', 1)}, {('second', 1)})),
         })
 
 def test_binop_power_to_quantity_with_unit(red):

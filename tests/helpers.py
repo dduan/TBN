@@ -6,9 +6,9 @@ def input_should_match(test, fixtures):
 
 def _sunit(unit=None):
     if not unit:
-        return ([], [])
+        return (set(), set())
     else:
-        return ([(unit, 1)], [])
+        return ({(unit, 1), }, set())
 
 def _almost_equal(a, b, threshold=0.0001):
     ''' test float number equality'''
