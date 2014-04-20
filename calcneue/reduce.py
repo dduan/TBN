@@ -11,8 +11,6 @@ def reduce(context, node):
 
 def reduce_quantity(context, number, unit):
     baseunit = lookup_base_unit(unit)
-    #print(number)
-    print("calling convert from reduce_quantity")
     return convert((number[1], unit), baseunit)
 
 def reduce_convert_expr(context, expr, unit):
@@ -20,7 +18,6 @@ def reduce_convert_expr(context, expr, unit):
     if unit_is_complex(expr[1]):
         return reduce(context, expr)
     elif not unit_is_empty(expr[1]):
-        print("calling convert from reduce_convert_quantity")
         return convert((expr[0], expr[1][0][0][0]), unit)
     else:
         return convert((expr[0], None), unit)
