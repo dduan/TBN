@@ -27,7 +27,7 @@ def reduce_convert_expr(context, expr, unit):
     else:
         return convert((expr[0], None), unit)
 
-def reduce_assignment(context, expr, id):
+def reduce_assignment(context, expr, varname):
     #TODO: implement side effects aka register id
     return reduce(context, expr)
 
@@ -87,6 +87,16 @@ def reduce_function_expr(context, params, funcname):
     if not func: return None, (set(), set())
     return func(val), unit
 
+
+def reduce_variable(context, varname, unit):
+    ''' add unit only when variable had no unit previously'''
+    val = context.get(varname, None)
+    if val and unit_is_empty(val[1]) and unit:
+        return val[0], ({unit, 1}, set())
+    elif val and not unit:
+        return val
+    else:
+        return None, (set(), set())
 if __name__ == '__main__':
     from parser import CalcNeueParser
     calc = CalcNeueParser()
