@@ -28,8 +28,8 @@ def reduce_convert_expr(context, expr, unit):
         return convert((expr[0], None), unit)
 
 def reduce_assignment(context, expr, varname):
-    #TODO: implement side effects aka register id
-    return reduce(context, expr)
+    context[varname] = reduce(context, expr)
+    return context[varname]
 
 def reduce_binop_plus(context, left, right):
     lval = reduce(context, left)
