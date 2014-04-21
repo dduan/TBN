@@ -41,7 +41,7 @@ def reduce_binop_plus(context, left, right):
     elif (unit_is_empty(rval[1])):
         return lval[0] + rval[0], lval[1]
     else:
-        return (None, ([], []))
+        return (None, (set(), set()))
 
 def reduce_binop_minus(context, left, right):
     lval = reduce(context, left)
@@ -53,24 +53,24 @@ def reduce_binop_minus(context, left, right):
     elif (unit_is_empty(rval[1])):
         return lval[0] - rval[0], lval[1]
     else:
-        return (None, ([], []))
+        return (None, (set(), set()))
 
 def reduce_binop_multiply(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
-    unit = simplify_unit((lval[1][0]+rval[1][0], lval[1][1]+rval[1][1]))
+    unit = unit_multiply(lval[1], rval[1])
     return lval[0] * rval[0], unit
 
 def reduce_binop_divide(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
-    unit = simplify_unit((lval[1][0]+rval[1][1], lval[1][1]+rval[1][0]))
+    unit = unit_divide(lval[1], rval[1])
     return lval[0] / rval[0], unit
 
 def reduce_binop_mod(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
-    unit = simplify_unit((lval[1][0]+rval[1][1], lval[1][1]+rval[1][0]))
+    unit = unit_divide(lval[1], rval[1])
     return lval[0] % rval[0], unit
 
 def reduce_binop_power(context, left, right):
@@ -79,7 +79,7 @@ def reduce_binop_power(context, left, right):
     if unit_is_empty(rval[1]):
         return lval[0] ** rval[0], rval[1]
     else:
-        return (None, ([], []))
+        return (None, (set(), set()))
 
 def reduce_function_expr(context, params, funcname):
     return '{}({})'.format(funcname, params)
