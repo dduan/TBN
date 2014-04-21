@@ -1,4 +1,4 @@
-from calcneue.reduce_unit import unit_is_empty,unit_is_equal, simplify_unit, unit_is_complex
+from calcneue.reduce_unit import *
 from helpers import _sunit
 
 def test_unit_is_empty():
@@ -34,3 +34,24 @@ def test_unit_is_complex():
     assert not unit_is_complex(_sunit('m'))
     assert unit_is_complex(newton)
 
+def test_unit_multiply_simple():
+    assert unit_multiply(_sunit('m'), _sunit('m')) == ({('m', 2)}, set())
+    assert unit_multiply(_sunit('m'), _sunit()) == _sunit('m')
+    assert unit_multiply(_sunit(), _sunit('m')) == _sunit('m')
+
+def test_unit_multiply_complex():
+    a = ({('m', 1), ('kg', 1)}, set())
+    b = (set(), {('s', 2)})
+    newton = ({('kg', 1), ('m', 1)}, {('s', 2)}) #kg*m/s^2
+    assert unit_multiply(a, b) == newton
+
+def test_unit_divide_simple():
+    assert unit_divide(_sunit('m'), _sunit('m')) == _sunit()
+    assert unit_divide(_sunit('m'), _sunit()) == _sunit('m')
+    assert unit_divide(_sunit(), _sunit('m')) == (set(), {('m', 1)})
+
+def test_unit_divide_complex():
+    a = ({('m', 1), ('kg', 1)}, set())
+    b = ({('s', 2)}, set())
+    newton = ({('kg', 1), ('m', 1)}, {('s', 2)}) #kg*m/s^2
+    assert unit_divide(a, b) == newton
