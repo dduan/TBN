@@ -82,3 +82,8 @@ def test_assignment_side_effect(red):
     # '(a=1) + a' should be 2
     node = ('binop_plus', ('assignment', ('quantity', ('integer_number', 1), None), 'a'), ('quantity', ('integer_number', 1), None))
     assert red(node) == (2, _sunit())
+    context = {}
+    reduce(context, ('assignment', ('quantity', ('integer_number', 1), None), 'a'))
+    assert context['a'] == (1, _sunit())
+    reduce(context, ('assignment', ('quantity', ('integer_number', 2), 'm'), 'a'))
+    assert context['a'] == (2, _sunit('m'))
