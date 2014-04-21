@@ -77,7 +77,7 @@ class CalcNeueParser:
             p[0] = ('quantity', p[1], None)
     def p_expression_variable(self, p):
         '''expression   :   IDENTIFIER IDENTIFIER
-						|   IDENTIFIER'''
+                        |   IDENTIFIER'''
         try:
             p[0] = ('variable', p[1], p[2])
         except IndexError:
