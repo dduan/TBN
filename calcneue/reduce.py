@@ -1,4 +1,4 @@
-from __future__ import print_function, unicode_literals, division
+import math
 try:
     from calcneue.convert import convert, lookup_base_unit
     from calcneue.reduce_unit import *
@@ -82,7 +82,10 @@ def reduce_binop_power(context, left, right):
         return (None, (set(), set()))
 
 def reduce_function_expr(context, params, funcname):
-    return '{}({})'.format(funcname, params)
+    func = getattr(math, funcname, None)
+    val, unit = reduce(context, params)
+    if not func: return None, (set(), set())
+    return func(val), unit
 
 if __name__ == '__main__':
     from parser import CalcNeueParser
