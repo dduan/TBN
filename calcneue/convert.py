@@ -1,10 +1,8 @@
 # each unit is consist of (factor, offset, base unit)
-relations = {
-    'kilometer': (1000, 0, 'meter'),
-    'celsius': (9/5, 32, 'farenheit'),
-    'meters' : (1, 0, 'meter'),
-}
-
+import json
+import os
+datapath = os.path.join(os.path.dirname(__file__), 'convert.json')
+relations = json.loads(open(datapath).read())
 # quantity is a tuple of (number, old_unit)
 def convert(quantity, unit):
     # 1 in meter, unit should be meter
