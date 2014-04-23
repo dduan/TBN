@@ -77,6 +77,9 @@ def reduce_binop_power(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
     if unit_is_empty(rval[1]):
+#        unit = lval[1]
+#        for i in range(1, rval[0]):
+
         return lval[0] ** rval[0], rval[1]
     else:
         return (None, (set(), set()))
@@ -92,13 +95,13 @@ def reduce_variable(context, varname, unit):
     ''' add unit only when variable had no unit previously'''
     val = context.get(varname, None)
     if val and unit_is_empty(val[1]) and unit:
-        return val[0], ({unit, 1}, set())
+        return val[0], ({(unit, 1)}, set())
     elif val and not unit:
         return val
     else:
         return None, (set(), set())
 if __name__ == '__main__':
-    from parser import CalcNeueParser
+    from calcneue.parser import CalcNeueParser
     calc = CalcNeueParser()
     while True:
         try:

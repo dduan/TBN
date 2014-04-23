@@ -60,6 +60,12 @@ def test_binop_power_to_quantity_with_unit(red):
     ('binop_power', ('quantity', _i(1), 'meter'), ('quantity', _i(1), 'apple')): (None, _sunit()),
     })
 
+def test_binop_power_without_unit(red):
+    '''2 meter ^ 2'''
+    input_should_match(red, {
+    ('binop_power', ('quantity', ('integer_number', 2), 'meter'), ('quantity', ('integer_number', 2), None)): (4, ({('meter', 2)}, set())),
+    })
+
 def test_reduce_basic_math_function(red):
     # sin(PI) should be 0
     node =  ('function_expr', ('quantity', ('float_number', 3.1415926), None), 'sin')
@@ -73,7 +79,7 @@ def test_reduce_basic_math_function(red):
 def test_assignment_expr_evaluation(red):
     assert red(('assignment', ('quantity', ('integer_number', 1), 'meter'), 'b')) == (1, _sunit('meter'))
 
-def test_varialbe_evaluation(red):
+def test_variable_evaluation(red):
     context = { 'a': (1, _sunit()) }
     assert reduce(context, ('variable', 'a', None)) == (1, _sunit())
     assert reduce(context, ('variable', 'b', None)) == (None, _sunit())
