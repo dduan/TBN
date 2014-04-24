@@ -1,5 +1,7 @@
 from calcneue.parser import CalcNeueParser
 from calcneue.reduce import reduce
+from calcneue.reduce_unit import unit_is_complex
+from calcneue.convert import convert
 class Document:
     def __init__(self, body):
         self.lines = body.split('\n')
@@ -13,7 +15,10 @@ class Document:
         final = []
         for l in self.lines:
             try:
-                reduced = self.beautify(reduce(self.context, self.calc.parser.parse(l)))
+                reduced = reduce(self.context, self.calc.parser.parse(l))
+                if not unit_is_complex(reduced[1]):
+                    reduced = convert((reduced[0], tuple(reduced[1][0])[0][0]), self.context['current_unit'])
+                reduced = self.beautify(reduced)
             except:
                 print("something is wrong!!")
                 reduced = None

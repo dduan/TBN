@@ -8,7 +8,6 @@ aliaspath = os.path.join(os.path.dirname(__file__), 'aliases.json')
 aliases = json.loads(open(aliaspath).read())
 
 def convert(quantity, unit):
-
     if quantity[1] == None:
         if unit == None:
             return (quantity[0], (set(), set()))

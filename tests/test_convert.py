@@ -14,3 +14,5 @@ def test_empty_source_unit():
     assert convert((1, None), 'm') == (1, _sunit('m'))
 
 
+def test_a_specific_case():
+    assert convert((1000, 'm'), 'km') == (1, _sunit('km'))

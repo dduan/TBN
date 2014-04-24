@@ -12,18 +12,23 @@ def reduce(context, node):
     return globals()['reduce_' + node[0]](context, *node[1:])
 
 def reduce_quantity(context, number, unit):
-    return convert_to_base(number[1], lookup_alias(unit))
+    result = convert_to_base(number[1], lookup_alias(unit))
+    context['current_unit'] = unit
+    return result
 
 def reduce_convert_expr(context, expr, unit):
     ''' expr in unit '''
+    result = None
     expr = reduce(context, expr)
     if unit_is_complex(expr[1]):
-        return reduce(context, expr)
+        result = reduce(context, expr)
     elif not unit_is_empty(expr[1]): # 1 km in m
-        return convert((expr[0], list(expr[1][0])[0][0]), unit)
+        result = convert((expr[0], list(expr[1][0])[0][0]), unit)
     else:
-        return convert((expr[0], None), unit)
+        result = convert((expr[0], None), unit)
 
+    context['current_unit'] = unit
+    return result
 def reduce_assignment(context, expr, name):
     context["variables"][name] = reduce(context, expr)
     return context["variables"][name]
@@ -87,6 +92,7 @@ def reduce_function_expr(context, params, funcname):
 
 def reduce_variable(context, name, unit):
     ''' add unit only when variable had no unit previously'''
+    context['current_unit'] = unit
     val = context["variables"].get(name, None)
     if val and unit_is_empty(val[1]) and unit:
         return val[0], ({(unit, 1)}, set())
