@@ -1,9 +1,9 @@
 import math
 try:
-    from calcneue.convert import convert, lookup_alias
+    from calcneue.convert import convert, lookup_alias, convert_to_base
     from calcneue.reduce_unit import *
 except ImportError:
-    from convert import convert, lookup_alias
+    from convert import convert, lookup_base_unit
     from reduce_unit import *
 
 # TODO:
@@ -12,7 +12,7 @@ def reduce(context, node):
     return globals()['reduce_' + node[0]](context, *node[1:])
 
 def reduce_quantity(context, number, unit):
-    return convert((number[1], unit),unit)
+    return convert_to_base(number[1], lookup_alias(unit))
 
 def reduce_convert_expr(context, expr, unit):
     ''' expr in unit '''

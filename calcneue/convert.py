@@ -4,12 +4,15 @@ import os
 
 datapath = os.path.join(os.path.dirname(__file__), 'convert.json')
 relations = json.loads(open(datapath).read())
-mappath = os.path.join(os.path.dirname(__file__), 'aliases.json')
-aliases = json.loads(open(mappath).read())
+aliaspath = os.path.join(os.path.dirname(__file__), 'aliases.json')
+aliases = json.loads(open(aliaspath).read())
 
-# quantity is a tuple of (number, old_unit)
 def convert(quantity, unit):
     unit = lookup_alias(unit)
+    old_unit = lookup_alias(quantity[1])
+    if unit == old_unit:
+        return quantity[0], ({(unit, 1)}, set())
+
     if quantity[1] == None:
         if unit == None:
             return (quantity[0], (set(), set()))
@@ -18,7 +21,7 @@ def convert(quantity, unit):
     else: 
         try:
             # found relation
-            relation = relations[quantity[1]]
+            relation = relations[old_unit]
             if isinstance(relation[0], str):
                 relation[0] = eval(relation[0])
             return quantity[0] * relation[0] + relation[1], ({(relation[2],1)},set())
@@ -33,12 +36,24 @@ def convert(quantity, unit):
                 # can't find relation, keep old unit
                 return quantity[0], ({(quantity[1], 1)}, set())
 
+def convert_to_base(number, unit):
+    if not unit:
+        return number, (set(), set())
+    try:
+        # found relation
+        relation = relations[unit]
+        if isinstance(relation[0], str):
+            relation[0] = eval(relation[0])
+        return number * relation[0] + relation[1], ({(relation[2], 1)}, set())
+    except KeyError:
+        return number, ({(unit, 1)}, set())
+
+
 def lookup_alias(unit):
-    '''also takes care of aliases 'm' => "meter"'''
     global aliases
-    base = aliases.get(unit, None)
-    if base:
-        return base
+    alias = aliases.get(unit, None)
+    if alias:
+        return alias
     else: 
         return unit
 

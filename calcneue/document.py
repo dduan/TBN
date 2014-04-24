@@ -14,7 +14,6 @@ class Document:
         for l in self.lines:
             try:
                 reduced = self.beautify(reduce(self.context, self.calc.parser.parse(l)))
-
             except:
                 reduced = None
             if reduced == None:
