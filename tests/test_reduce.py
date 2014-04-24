@@ -97,3 +97,8 @@ def test_assignment_side_effect(red):
     assert context["variables"]['a'] == (1, _sunit())
     reduce(context, ('assignment', ('quantity', ('integer_number', 2), 'm'), 'a'))
     assert context["variables"]['a'] == (2, _sunit('m'))
+
+def test_negative_expr(red):
+    input_should_match(red, {
+        ('negative_expr', ('quantity', ('integer_number', 1), None)): (-1, _sunit())
+        })

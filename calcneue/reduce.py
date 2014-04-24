@@ -94,6 +94,11 @@ def reduce_variable(context, name, unit):
         return val
     else:
         return None, (set(), set())
+
+def reduce_negative_expr(context, expr):
+    expr = reduce(context, expr)
+    return ((-expr[0], expr[1]))
+
 if __name__ == '__main__':
     from calcneue.parser import CalcNeueParser
     calc = CalcNeueParser()
