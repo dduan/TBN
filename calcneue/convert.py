@@ -8,10 +8,6 @@ aliaspath = os.path.join(os.path.dirname(__file__), 'aliases.json')
 aliases = json.loads(open(aliaspath).read())
 
 def convert(quantity, unit):
-    unit = lookup_alias(unit)
-    old_unit = lookup_alias(quantity[1])
-    if unit == old_unit:
-        return quantity[0], ({(unit, 1)}, set())
 
     if quantity[1] == None:
         if unit == None:
@@ -19,6 +15,10 @@ def convert(quantity, unit):
         else:
             return (quantity[0], ({(unit, 1)}, set()))
     else: 
+        unit = lookup_alias(unit)
+        old_unit = lookup_alias(quantity[1])
+        if unit == old_unit:
+            return quantity[0], ({(unit, 1)}, set())
         try:
             # found relation
             relation = relations[old_unit]
@@ -51,11 +51,12 @@ def convert_to_base(number, unit):
 
 def lookup_alias(unit):
     global aliases
-    alias = aliases.get(unit, None)
-    if alias:
-        return alias
-    else: 
-        return unit
+    if unit:
+        alias = aliases.get(unit.lower(), None)
+        if alias:
+            return alias
+        else: 
+            return unit
 
 if __name__ == '__main__':
     while True:

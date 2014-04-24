@@ -15,6 +15,7 @@ class Document:
             try:
                 reduced = self.beautify(reduce(self.context, self.calc.parser.parse(l)))
             except:
+                print("something is wrong!!")
                 reduced = None
             if reduced == None:
                 reduced = ''
