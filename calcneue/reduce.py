@@ -74,10 +74,7 @@ def reduce_binop_power(context, left, right):
     lval = reduce(context, left)
     rval = reduce(context, right)
     if unit_is_empty(rval[1]):
-#        unit = lval[1]
-#        for i in range(1, rval[0]):
-
-        return lval[0] ** rval[0], rval[1]
+        return lval[0] ** rval[0], unit_power(lval[1], rval[0]) 
     else:
         return (None, (set(), set()))
 
