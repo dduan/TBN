@@ -71,5 +71,12 @@
   "metre": "m",
   "kilometers": "km",
   "km": "km",
-  "kilometer": "km"
+  "kilometer": "km", 
+  "dollar": "USD",
+  "dollars": "USD",
+  "yuan": "CNY",
+  "lightyear": "lightyear",
+  "lightyears": "lightyears",
+  "fahrenheit": "°F",
+  "celsius": "°C"
 }
