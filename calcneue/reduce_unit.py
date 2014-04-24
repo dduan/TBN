@@ -59,3 +59,12 @@ def unit_divide(a, b):
         de.add((u, deg * 2))
     de = de.union(a[1].symmetric_difference(b[0]))
     return simplify_unit((nu, de))
+
+def unit_power(unit, power):
+    "take unit to a power"
+    result = (set(), set())
+
+    [result[0].add((u[0], u[1] * power)) for u in unit[0]]
+    [result[1].add((u[0], u[1] * power)) for u in unit[1]]
+
+    return result
