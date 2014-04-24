@@ -55,3 +55,8 @@ def test_unit_divide_complex():
     b = ({('s', 2)}, set())
     newton = ({('kg', 1), ('m', 1)}, {('s', 2)}) #kg*m/s^2
     assert unit_divide(a, b) == newton
+
+def test_unit_power():
+    m_per_ss = ({('m', 1)}, {('s', 2)})
+    mm_per_ssss = ({('m', 2)}, {('s', 4)})
+    assert unit_power(m_per_ss, 2) == mm_per_ssss
