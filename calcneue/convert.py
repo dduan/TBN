@@ -1,7 +1,6 @@
 # each unit is consist of (factor, offset, base unit)
 import json
 import os
-from calcneue.reduce_unit import unit_is_empty
 
 datapath = os.path.join(os.path.dirname(__file__), 'convert.json')
 relations = json.loads(open(datapath).read())
@@ -9,17 +8,14 @@ aliaspath = os.path.join(os.path.dirname(__file__), 'aliases.json')
 aliases = json.loads(open(aliaspath).read())
 
 def convert(quantity, unit):
-    if unit_is_empty(quantity[1]):
-        if unit_is_empty(unit):
+    if quantity[1] == None:
+        if unit == None:
             return (quantity[0], (set(), set()))
         else:
             return (quantity[0], ({(unit, 1)}, set()))
     else: 
-        old_unit = unit
-        try:
-            unit = lookup_alias(unit)
-            old_unit = lookup_alias(quantity[1])
-        except: pass
+        unit = lookup_alias(unit)
+        old_unit = lookup_alias(quantity[1])
         if unit == old_unit:
             return quantity[0], ({(unit, 1)}, set())
         try:
