@@ -78,5 +78,15 @@
   "lightyear": "lightyear",
   "lightyears": "lightyears",
   "fahrenheit": "°F",
-  "celsius": "°C"
+  "celsius": "°C",
+  "mins": "min",
+  "min": "min",
+  "minute": "min",
+  "minutes": "min",
+  "hour": "hr",
+  "hours": "hr",
+  "second": "s",
+  "sec": "s",
+  "seconds": "s",
+  "secs": "s"
 }
