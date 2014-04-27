@@ -7,9 +7,11 @@ class Document:
         self.lines = body.split('\n')
         self.context = {
                 'variables': {},
-                'current_unit': None
+                'current_unit': None,
+                'current_base_unit': None,
                 }
         self.calc = CalcNeueParser()
+        self.is_currency = False
     
     def evaluate(self):
         final = []
@@ -20,15 +22,21 @@ class Document:
                     if unit_is_empty(reduced[1]):
                         reduced = convert((reduced[0], None), self.context['current_unit'])
                     else:
-                        reduced = convert((reduced[0], tuple(reduced[1][0])[0][0]), self.context['current_unit'])
+                        unit = tuple(reduced[1][0])[0][0]
+                        reduced = convert((reduced[0], unit), self.context['current_unit'])
+                        # round to second decimal place for currency
+                        if self.context["current_base_unit"] == ({('EURO', 1)}, set()):
+                            reduced = (round(reduced[0], 2), reduced[1])
                 reduced = self.beautify(reduced)
             except:
                 print("something is wrong!!")
                 reduced = None
+
             if reduced == None:
                 reduced = ''
 
             final.append(reduced)
+
         return final
 
     def beautify(self, expr):
@@ -43,9 +51,10 @@ class Document:
                     result.append('{}^{}'.format(u[0], u[1]))
             return ' * '.join(result)
 
-
         nu_str = simplify(unit[0])
         de_str = simplify(unit[1])
+
+
 
         if de_str:
             return '{} {} / {}'.format(num, nu_str, de_str)

@@ -14,12 +14,14 @@ def reduce(context, node):
 def reduce_quantity(context, number, unit):
     result = convert_to_base(number[1], lookup_alias(unit))
     context['current_unit'] = unit
+    context['current_base_unit'] = result[1]
     return result
 
 def reduce_convert_expr(context, expr, unit):
     ''' expr in unit '''
     result = None
     expr = reduce(context, expr)
+    context['current_base_unit'] = expr[1]
     if unit_is_complex(expr[1]):
         result = reduce(context, expr)
     elif not unit_is_empty(expr[1]): # 1 km in m
@@ -29,6 +31,7 @@ def reduce_convert_expr(context, expr, unit):
 
     context['current_unit'] = unit
     return result
+
 def reduce_assignment(context, expr, name):
     context["variables"][name] = reduce(context, expr)
     return context["variables"][name]
