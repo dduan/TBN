@@ -16,7 +16,7 @@ class Document:
         for l in self.lines:
             try:
                 reduced = reduce(self.context, self.calc.parser.parse(l))
-                if not unit_is_complex(reduced[1]):
+                if not unit_is_complex(reduced[1]) and not self.context['current_unit'] == None:
                     reduced = convert((reduced[0], tuple(reduced[1][0])[0][0]), self.context['current_unit'])
                 reduced = self.beautify(reduced)
             except:
@@ -44,7 +44,9 @@ class Document:
         nu_str = simplify(unit[0])
         de_str = simplify(unit[1])
 
+        print(num)
+
         if de_str:
             return '{} {} / {}'.format(num, nu_str, de_str)
-        else:
+        else: 
             return '{} {}'.format(num, nu_str)

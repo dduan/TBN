@@ -7,7 +7,7 @@ internal representation of a unit during reduce:
 '''
 def unit_is_empty(unit):
     ''' empty or None'''
-    return unit == (set(), set())
+    return unit == (set(), set()) or unit == None
 
 def unit_is_equal(a, b):
     return simplify_unit(a) == simplify_unit(b)
