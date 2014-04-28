@@ -21,6 +21,7 @@ class Document:
     def evaluate(self):
         final = []
         for l in self.lines:
+            self.context['current_unit'] = None
             try:
                 reduced = reduce(self.context, self.calc.parser.parse(l))
                 if not unit_is_complex(reduced[1]):
@@ -37,7 +38,7 @@ class Document:
                 print("something is wrong!!")
                 reduced = None
 
-            if reduced == None:
+            if not reduced or 'None' in reduced: #TODO: track down where 'None' is from
                 reduced = ''
 
             final.append(reduced)
