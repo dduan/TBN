@@ -102,3 +102,11 @@ def test_negative_expr(red):
     input_should_match(red, {
         ('negative_expr', ('quantity', ('integer_number', 1), None)): (-1, _sunit())
         })
+
+def test_variable_add_quantity(red):
+    var = ('variable', 'a', None)
+    q = ('quantity', ('integer_number', 1), 'EURO')
+    context = {
+    'variables': {'a': (1, _sunit('EURO'))},
+    }
+    assert reduce(context, ('binop_plus', var, q)) == (2, _sunit('EURO'))

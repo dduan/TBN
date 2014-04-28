@@ -9,7 +9,6 @@ except ImportError:
 # TODO:
 # use unknown units
 def reduce(context, node):
-    print(node)
     return globals()['reduce_' + node[0]](context, *node[1:])
 
 def reduce_quantity(context, number, unit):
@@ -43,7 +42,9 @@ def reduce_assignment(context, expr, name):
 
 def reduce_binop_plus(context, left, right):
     lval = reduce(context, left)
+    print(lval)
     rval = reduce(context, right)
+    print(rval)
     if (unit_is_equal(lval[1], rval[1])):
         return lval[0] + rval[0], rval[1]
     elif (unit_is_empty(lval[1])):
@@ -100,15 +101,15 @@ def reduce_function_expr(context, params, funcname):
 
 def reduce_variable(context, name, unit):
     ''' add unit only when variable had no unit previously'''
+    result = None, (set(), set())
     val = context["variables"].get(name, None)
     if val:
         context['current_unit'] = simple_unit_from_complex_unit(val)
     if val and unit_is_empty(val[1]) and unit:
-        return val[0], ({(unit, 1)}, set())
+        result = val[0], ({(unit, 1)}, set())
     elif val and not unit:
-        return val
-    else:
-        return None, (set(), set())
+        result = val
+    return convert_to_base(result[0], simple_unit_from_complex_unit(result))
 
 def reduce_negative_expr(context, expr):
     expr = reduce(context, expr)
