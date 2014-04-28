@@ -1,14 +1,15 @@
 import math
 try:
-    from calcneue.convert import convert, lookup_alias, convert_to_base
+    from calcneue.convert import convert, lookup_alias, convert_to_base, simple_unit_from_complex_unit
     from calcneue.reduce_unit import *
 except ImportError:
-    from convert import convert, lookup_base_unit
+    from convert import convert, lookup_alias, convert_to_base, simple_unit_from_complex_unit
     from reduce_unit import *
 
 # TODO:
 # use unknown units
 def reduce(context, node):
+    print(node)
     return globals()['reduce_' + node[0]](context, *node[1:])
 
 def reduce_quantity(context, number, unit):
@@ -33,8 +34,12 @@ def reduce_convert_expr(context, expr, unit):
     return result
 
 def reduce_assignment(context, expr, name):
-    context["variables"][name] = reduce(context, expr)
-    return context["variables"][name]
+    context['current_unit'] = simple_unit_from_complex_unit(expr)
+    val = reduce(context, expr)
+    context["variables"][name] = convert(
+        (val[0], simple_unit_from_complex_unit(val)),
+        context['current_unit'])
+    return val
 
 def reduce_binop_plus(context, left, right):
     lval = reduce(context, left)
@@ -95,8 +100,9 @@ def reduce_function_expr(context, params, funcname):
 
 def reduce_variable(context, name, unit):
     ''' add unit only when variable had no unit previously'''
-    context['current_unit'] = unit
     val = context["variables"].get(name, None)
+    if val:
+        context['current_unit'] = simple_unit_from_complex_unit(val)
     if val and unit_is_empty(val[1]) and unit:
         return val[0], ({(unit, 1)}, set())
     elif val and not unit:

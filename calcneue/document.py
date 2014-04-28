@@ -2,11 +2,16 @@ from calcneue.parser import CalcNeueParser
 from calcneue.reduce import reduce
 from calcneue.reduce_unit import unit_is_complex, unit_is_empty
 from calcneue.convert import convert
+import math
 class Document:
     def __init__(self, body):
         self.lines = body.split('\n')
         self.context = {
-                'variables': {},
+                'variables': {
+                'PI': (math.pi, (set(), set())),
+                'pi': (math.pi, (set(), set())),
+                'e': (math.e, (set(), set()))
+                },
                 'current_unit': None,
                 'current_base_unit': None,
                 }

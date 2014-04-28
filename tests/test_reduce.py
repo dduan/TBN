@@ -51,11 +51,11 @@ def test_binop_with_complex_unit(red):
         # 1 m * 1 m = 1 m^2
         ('binop_multiply', ('quantity', ('integer_number', 1), 'm'), ('quantity', ('integer_number', 1), 'm')): (1, ({('m', 2)}, set())),
         # 1 m * 1 second = 1 (m * second)
-        ('binop_multiply', ('quantity', ('integer_number', 1), 'm'), ('quantity', ('integer_number', 1), 'second')): (1, ({('m', 1), ('second', 1)}, set())),
+        ('binop_multiply', ('quantity', ('integer_number', 1), 'm'), ('quantity', ('integer_number', 1), 'second')): (1, ({('m', 1), ('s', 1)}, set())),
         # 1 m / 1 m = 1
         ('binop_divide', ('quantity', ('integer_number', 1), 'm'), ('quantity', ('integer_number', 1), 'm')): (1, _sunit()),
         # 1 m / 1 second = 1 (m / second)
-        ('binop_divide', ('quantity', ('integer_number', 1), 'm'), ('quantity', ('integer_number', 1), 'second')): (1, ({('m', 1)}, {('second', 1)})),
+        ('binop_divide', ('quantity', ('integer_number', 1), 'm'), ('quantity', ('integer_number', 1), 'second')): (1, ({('m', 1)}, {('s', 1)})),
         })
 
 def test_binop_power_to_quantity_with_unit(red):

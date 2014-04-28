@@ -57,6 +57,12 @@ def lookup_alias(unit):
         else: 
             return unit
 
+def simple_unit_from_complex_unit(expr):
+    '''expr's unit is complex, assumed'''
+    try:
+        return tuple(expr[1][0])[0][0]
+    except IndexError:
+        return None
 if __name__ == '__main__':
     while True:
         try:
