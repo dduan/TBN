@@ -84,7 +84,7 @@ def test_assignment_expr_evaluation(red):
     assert red(('assignment', ('quantity', ('integer_number', 1), 'm'), 'b')) == (1, _sunit('m'))
 
 def test_variable_evaluation(red):
-    context = { 'variables': { 'a': (1, _sunit()) }}
+    context = { 'variables': { 'a': (1, _sunit()) }, 'current_unit': None }
     assert reduce(context, ('variable', 'a', None)) == (1, _sunit())
     assert reduce(context, ('variable', 'b', None)) == (None, _sunit())
 
@@ -92,7 +92,7 @@ def test_assignment_side_effect(red):
     # '(a=1) + a' should be 2
     node = ('binop_plus', ('assignment', ('quantity', ('integer_number', 1), None), 'a'), ('quantity', ('integer_number', 1), None))
     assert red(node) == (2, _sunit())
-    context = {"variables": {}}
+    context = {"variables": {}, 'current_unit': None }
     reduce(context, ('assignment', ('quantity', ('integer_number', 1), None), 'a'))
     assert context["variables"]['a'] == (1, _sunit())
     reduce(context, ('assignment', ('quantity', ('integer_number', 2), 'm'), 'a'))

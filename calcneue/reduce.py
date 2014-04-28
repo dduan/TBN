@@ -13,15 +13,17 @@ def reduce(context, node):
 
 def reduce_quantity(context, number, unit):
     result = convert_to_base(number[1], lookup_alias(unit))
-    context['current_unit'] = unit
-    context['current_base_unit'] = result[1]
+    context['current_unit'] = unit or context['current_unit']
+    if not unit_is_empty(result[1]):
+        context['current_base_unit'] = simple_unit_from_complex_unit(result)
     return result
 
 def reduce_convert_expr(context, expr, unit):
     ''' expr in unit '''
     result = None
     expr = reduce(context, expr)
-    context['current_base_unit'] = expr[1]
+    if not unit_is_empty(expr[1]):
+        context['current_base_unit'] = simple_unit_from_complex_unit(expr)
     if unit_is_complex(expr[1]):
         result = reduce(context, expr)
     elif not unit_is_empty(expr[1]): # 1 km in m
@@ -29,11 +31,10 @@ def reduce_convert_expr(context, expr, unit):
     else:
         result = convert((expr[0], None), unit)
 
-    context['current_unit'] = unit
+    context['current_unit'] = unit or context['current_unit']
     return result
 
 def reduce_assignment(context, expr, name):
-    context['current_unit'] = simple_unit_from_complex_unit(expr)
     val = reduce(context, expr)
     context["variables"][name] = convert(
         (val[0], simple_unit_from_complex_unit(val)),
@@ -104,12 +105,14 @@ def reduce_variable(context, name, unit):
     result = None, (set(), set())
     val = context["variables"].get(name, None)
     if val:
-        context['current_unit'] = simple_unit_from_complex_unit(val)
+        context['current_unit'] = simple_unit_from_complex_unit(val) or context['current_unit']
     if val and unit_is_empty(val[1]) and unit:
         result = val[0], ({(unit, 1)}, set())
     elif val and not unit:
         result = val
-    return convert_to_base(result[0], simple_unit_from_complex_unit(result))
+    result = convert_to_base(result[0], simple_unit_from_complex_unit(result))
+    context['current_base_unit'] = simple_unit_from_complex_unit(result)
+    return result
 
 def reduce_negative_expr(context, expr):
     expr = reduce(context, expr)
