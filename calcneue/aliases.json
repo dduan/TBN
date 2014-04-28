@@ -88,5 +88,11 @@
   "second": "s",
   "sec": "s",
   "seconds": "s",
-  "secs": "s"
+  "secs": "s",
+  "days": "day",
+  "day": "day",
+  "year": "year",
+  "years": "year",
+  "fortnight": "fortnight",
+  "fortnights": "fortnight"
 }
