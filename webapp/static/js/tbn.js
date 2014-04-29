@@ -108,6 +108,7 @@ $(document).ready(function() {
             $("#doc_title").val(name);
             $('#formula_area').val(body);
             this.editingDocument = name;
+            this.evaluateDocument();
         };
 
         TBNWebClient.prototype.evaluateDocument = function() {
