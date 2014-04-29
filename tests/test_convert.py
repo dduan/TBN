@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from calcneue.convert import convert
 from helpers import _i, _f, _sunit, input_should_match
 

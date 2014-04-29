@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pytest
 from functools import partial
 from helpers import _i, _f, input_should_match, _sunit, _almost_equal

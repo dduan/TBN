@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 import pytest
 from calcneue.parser import CalcNeueParser
 from helpers import _i, _f, input_should_match

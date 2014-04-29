@@ -1,3 +1,4 @@
+# -*- coding: utf-8 -*-
 from calcneue.reduce_unit import *
 from helpers import _sunit
 
