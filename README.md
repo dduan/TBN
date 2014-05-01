@@ -1,19 +1,15 @@
-## Development ##
+## Running the App ##
 
-This project is developed with `virtualenv` and Python 3.
+This project depends on Python version 3+ and `pip`, the Python package management program.
 
-Having both installed, the the following steps are necessary to get the
-engine running:
+To run the app, make sure `pip3` works properly with Python 3. Then:
 
-    1. Create and enter a virtual environment with `virtualenv`. Note that
-    in some environemnt where both Python 2 and 3 are used, using
-    `virtualenv -p \`which python3\'` will create a environment where the
-    Python packages are shared with the system packages. To fix it, go to the
-    `bin` folder in the virtual environment's path, replace the "shebang" of
-    every python script in there with the path to the symlink to python in that
-    folder.
+    * run `pip3 install -r requirements.txt` to install all dependencies listed in requirements.txt
+    * start the server by `python3 start_server.py`
+    * open a local browser and visit `http://localhost:5000`
 
-    2. In top level of the project, run `pip install -r requirements.txt` to
-    install dependencies.
+## Testing ##
 
-    3. Run `py.test` to run all tests.
+After all dependencies are satisfied, use the command `py.test` under project root will run all the tests.
+
+Currently the test `test_known_units` fails on Windows machines due to a text encoding error for the degree symbol. It passes on Unix systems.
