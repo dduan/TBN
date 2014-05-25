@@ -41,7 +41,7 @@ class Document:
             if not reduced or 'None' in reduced: #TODO: track down where 'None' is from
                 reduced = ''
 
-            final.append(reduced)
+            final.append(reduced.strip())
 
         return final
 
