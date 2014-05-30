@@ -43,9 +43,7 @@ def reduce_assignment(context, expr, name):
 
 def reduce_binop_plus(context, left, right):
     lval = reduce(context, left)
-    print(lval)
     rval = reduce(context, right)
-    print(rval)
     if (unit_is_equal(lval[1], rval[1])):
         return lval[0] + rval[0], rval[1]
     elif (unit_is_empty(lval[1])):
