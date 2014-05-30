@@ -1,8 +1,8 @@
-Flask==0.10.1
-Jinja2==2.7.2
-MarkupSafe==0.21
-Werkzeug==0.9.4
-itsdangerous==0.24
+Cython==0.20.1
+-e hg+http://bitbucket.org/pygame/pygame#egg=pygame
+Kivy==1.8.0
+Kivy-Garden==0.1.1
 ply==3.4
 py==1.4.20
 pytest==2.5.2
+requests==2.3.0
