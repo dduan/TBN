@@ -1,12 +1,12 @@
 from kivy.app import App
 from kivy.uix.widget import Widget
 
-class MyPaintWidigt(Widget):
+class TbnWidget(Widget):
     pass
 
-class MyPaintApp(App):
+class TbnApp(App):
     def build(self):
-        return MyPaintWidigt()
+        return TbnWidget()
 
 if __name__ == '__main__':
-    MyPaintApp().run()
+    TbnApp().run()
